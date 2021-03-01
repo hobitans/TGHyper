@@ -10,13 +10,15 @@ can
 The hyperlogic *HyperCTL\** an extension of LTL with quantification over path variables at arbitrary positions
 is able to express the combination of *branching-time and hyperpropeties*.
 HyperCTL enables us to express security policies that follow precisely the flow of information in non-deterministic systems.
-
 TGHyper is the first decision procedure for HyperCTL* formulas in exists-forall normal form(ENF-HyperCTL*).
-It can detect if an ENF-HyperCTL* formula is a tautology or unsatisfiable. This is useful in a preprocessing step of model checking ([MCHyper](https://www.react.uni-saarland.de/tools/mchyper/)) 
+For satisfiable formulas, TGHyper can return satisfying trees.
+
+## Applications
+TGHyper can detect if an ENF-HyperCTL* formula is a tautology or unsatisfiable. 
+This is useful in a preprocessing step of model checking ([MCHyper](https://www.react.uni-saarland.de/tools/mchyper/)) 
 and synthesis procedures.  
-Furthermore, TGHyper can prove or disprove certain implications between different combinations of hyper- and branching-time properties formilized in ENF-HyperCTL*.
-For satisfiable formulas TGHyper can return satisfying trees. 
-By constructing trees that disprove implications, it supports the understanding of the relationship between different specifications even more.
+Furthermore, TGHyper can prove or disprove certain implications between different combinations of hyper- and branching-time properties formalized in ENF-HyperCTL*.
+By returning trees that disprove implications, it supports the understanding of the relationship between different specifications even more.
 
 TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Hans 2021.
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
