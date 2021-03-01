@@ -19,7 +19,7 @@ This is useful in a preprocessing step of model checking ([MCHyper](https://www.
 and synthesis procedures.  
 Furthermore, TGHyper can prove or disprove certain implications between different combinations of hyper- and branching-time properties formalized in ENF-HyperCTL*.
 By returning trees that disprove implications, it supports the understanding of the relationship between different specifications even more.
-
+***
 TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Hans 2021.
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
 
