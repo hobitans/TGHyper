@@ -17,9 +17,9 @@ Also functionality for handling quantfied boolean formulas of MGHyper is adapted
 TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Hans 2021.
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
 
-[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018 \\
+[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018\ 
 Christopher Hahn <hahn@react.uni-saarland.de>, Tobias Hans ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
-[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018 \\
+[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018\ 
 Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger <stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
 
 ### Dependencies  
