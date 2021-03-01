@@ -3,13 +3,13 @@
 ****
 
 *Branching-time and hyperproperties* can express different specifications for verifying the correctness of systems.
-Branching-time properties consider the branching structure of execution trees and 
-can 
-
+*Branching-time properties* consider the branching structure of execution trees and can reffer to the exact points of non-deterministic decisions in a system.
+*Hyperpoperties* compare multiple execution traces of a system and are able to express the information flow properties.
 
 The hyperlogic *HyperCTL\** an extension of LTL with quantification over path variables at arbitrary positions
 is able to express the combination of *branching-time and hyperpropeties*.
 HyperCTL enables us to express security policies that follow precisely the flow of information in non-deterministic systems.
+
 TGHyper is the first decision procedure for HyperCTL* formulas in exists-forall normal form(ENF-HyperCTL*).
 For satisfiable formulas, TGHyper can return satisfying trees.
 
