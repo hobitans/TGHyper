@@ -1,0 +1,32 @@
+digraph G {
+  "p1_0-0[sub ]" [shape=box, ];
+  "p1_0-1[upt ]" [shape=box, ];
+  "p1_0-2[rvw ]" [shape=box, ];
+  "p1_0-3[acc ]" [shape=box, ];
+  "p1_0-4[acc cls ]" [shape=box, ];
+  "p1_0-5[acc rel ]" [shape=box, ];
+  "p1_0-6[con acc ]" [shape=box, ];
+  "p2_p10_0-1[upt ]" [shape=box, ];
+  "p2_p10_0-2[rvw ]" [shape=box, ];
+  "p2_p10_0-3[rej ]" [shape=box, ];
+  "p2_p10_0-4[rej cls ]" [shape=box, ];
+  "p2_p10_0-5[rej rel ]" [shape=box, ];
+  "p2_p10_0-6[rej sry ]" [shape=box, ];
+  
+  
+  "p1_0-0[sub ]" -> "p1_0-1[upt ]" [color="#00002A", ];
+  "p1_0-0[sub ]" -> "p2_p10_0-1[upt ]" [color="#00002A", ];
+  "p1_0-1[upt ]" -> "p1_0-2[rvw ]" [color="#00002A", ];
+  "p1_0-2[rvw ]" -> "p1_0-3[acc ]" [color="#00002A", ];
+  "p1_0-3[acc ]" -> "p1_0-4[acc cls ]" [color="#00002A", ];
+  "p1_0-4[acc cls ]" -> "p1_0-5[acc rel ]" [color="#00002A", ];
+  "p1_0-5[acc rel ]" -> "p1_0-6[con acc ]" [color="#00002A", ];
+  "p1_0-6[con acc ]" -> "p1_0-6[con acc ]" [color="#00002A", ];
+  "p2_p10_0-1[upt ]" -> "p2_p10_0-2[rvw ]" [color="#00002A", ];
+  "p2_p10_0-2[rvw ]" -> "p2_p10_0-3[rej ]" [color="#00002A", ];
+  "p2_p10_0-3[rej ]" -> "p2_p10_0-4[rej cls ]" [color="#00002A", ];
+  "p2_p10_0-4[rej cls ]" -> "p2_p10_0-5[rej rel ]" [color="#00002A", ];
+  "p2_p10_0-5[rej rel ]" -> "p2_p10_0-6[rej sry ]" [color="#00002A", ];
+  "p2_p10_0-6[rej sry ]" -> "p2_p10_0-6[rej sry ]" [color="#00002A", ];
+  
+  }

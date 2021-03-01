@@ -1,0 +1,3 @@
+forall ip .(G( 
+((forall pv.(X(((((l_ip) <->( l_pv))) & (X(((((o_ip) <->( o_pv)) )W( ((((~(((k0_ip) <->( k0_pv))) )|( ~(((l_ip) <->( l_pv))))) )|( False))))))))) )|( False))
+))

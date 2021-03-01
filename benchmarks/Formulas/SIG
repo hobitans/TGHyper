@@ -1,0 +1,1 @@
+exists p0.(F(exists p1.( (G(o_p0 <=> o_p1))&(X(~(s_p0 <=> s_p1 ))))))
