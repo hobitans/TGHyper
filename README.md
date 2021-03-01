@@ -15,7 +15,7 @@ TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submi
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
 
 
-[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/)Copyright © 2017, 2018 Christopher Hahn, Marvin Stenger ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
+[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/)Copyright © 2017, 2018 Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger<stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
 
 ### Dependencies  
 * [OCAMl Version 4.06.1](https://opam.ocaml.org/packages/ocaml/ocaml.4.06.1/)
