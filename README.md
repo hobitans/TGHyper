@@ -2,24 +2,37 @@
 ### Tree Generator for checking satisfiability of HyperCTL* formula in ENF.
 ****
 
+*Branching-time and hyperproperties* can express different specifications for verifying the correctness of systems.
+Branching-time properties consider the branching structure of execution trees and 
+can 
 
 
+The hyperlogic *HyperCTL\** an extension of LTL with quantification over path variables at arbitrary positions
+is able to express the combination of *branching-time and hyperpropeties*.
+HyperCTL enables us to express security policies that follow precisely the flow of information in non-deterministic systems.
 
-TGHyper is based on [MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) a semi-decision procedure for arbitrary HyperLTL formulas. 
-MGHyper is an extension of [EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) a satisfiability solver for formulas in the decidable fragments of HyperLTL.
-TGHyper adapt the mode handling functionality and reuses most of the flags of MGHyper/EAHyper
-TGHyper adapted/reuse formula types, parser, and lexer of MGHyper/EAHyper for handling quantified path variables at arbitrary positions.
-Also functionality for handling quantfied boolean formulas of MGHyper is adapted to boolean formulas 
-
-
-
+TGHyper is the first decision procedure for HyperCTL* formulas in exists-forall normal form(ENF-HyperCTL*).
+It can detect if an ENF-HyperCTL* formula is a tautology or unsatisfiable. This is useful in a preprocessing step of model checking ([MCHyper](https://www.react.uni-saarland.de/tools/mchyper/)) 
+and synthesis procedures.  
+Furthermore, TGHyper can prove or disprove certain implications between different combinations of hyper- and branching-time properties formilized in ENF-HyperCTL*.
+For satisfiable formulas TGHyper can return satisfying trees. 
+By constructing trees that disprove implications, it supports the understanding of the relationship between different specifications even more.
 
 TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Hans 2021.
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
 
-[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018\ 
+*TGHyper* is based on [MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) a semi-decision procedure for arbitrary HyperLTL formulas. 
+*MGHyper* is an extension of [EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) a satisfiability solver for formulas in the decidable fragments of HyperLTL.
+TGHyper adapt the mode the input format, handling functionality, and reuses most of the flags of *MGHyper/EAHyper*. This enables user and scripts, already familiar with those tools,
+easily to adapt to TGHyper.
+TGHyper adapted/reuse formula types, parser, and lexer of *MGHyper/EAHyper* for handling quantified path variables at arbitrary positions.
+Also, functionality for handling quantified boolean formulas and invoking the respective QBFSAT Solveris adapted to handling boolean formulas and invoking [limboole](http://fmv.jku.at/limboole/).
+The list of adapted files is displayed below.
+
+
+[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018 
 Christopher Hahn <hahn@react.uni-saarland.de>, Tobias Hans ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
-[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018\ 
+[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018 
 Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger <stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
 
 ### Dependencies  
