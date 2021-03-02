@@ -29,14 +29,9 @@ TGHyper adapts the input format, mode handling functionality and reuses most fla
 easily to adapt to TGHyper.
 TGHyper adapted/reuse formula types, parser, and lexer of *MGHyper/EAHyper* for handling quantified path variables at arbitrary positions.
 Also, functionality for handling quantified boolean formulas and invoking the respective QBFSAT Solver is adapted to handling boolean formulas and invoking [limboole](http://fmv.jku.at/limboole/).
+limboole uses [Lingeling](http://fmv.jku.at/lingeling/) as an underlying Sat-Solver.
 The list of adapted files is displayed below.
 
-
-[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018 
-Christopher Hahn <hahn@react.uni-saarland.de>, Tobias Hans ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
-  
-[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018 
-Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger <stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
 
 ### Dependencies  
 * [OCAMl Version 4.06.1](https://opam.ocaml.org/packages/ocaml/ocaml.4.06.1/)
@@ -87,10 +82,11 @@ The following files contain functionality adapted from MGHyper/EAHyper.
     - ``--graph`` If the formula is satisfiable, a graph representation of the assignment is shown.
     - ``--notfast`` Replace G F operators by U R and do not use the smaller reduction (default false).
     - ``--secLTL`` Print a SecLTL formula from our test set to adapt the formula adapt file ``secLTLTest.ml``.
-* ``tg_hyperCTL.ml``    adapted from MGHyper. TGHyper and MGhyper are based on the same idea of unrolling the formulas for incrementally larger bounds until a satisfiable assignment is found.
+* ``tg_hyperCTL.ml``    adapted from MGHyper. Contains the function to step-wise unrolling of the formulas for incrementally larger bounds until a satisfiable assignment is found.
+                            The actual unrolling is done in ``unrolling.ml`` and ``tvStep.ml``.
 * ``formulaHyperCTL.ml``    adapted from MGHyper/EAHyper HyperLTL types and function, for handling path variable quantification at arbitrary positions.
 * ``invokeSatSolver.ml``    adapted on MGHyper/EAHyper for handling arbitrary propositional formulas and
-                            invoke limboole(http://fmv.jku.at/limboole/) with the ``-s`` flag for checking the satisfiability of propositional formulas.
+                            invoke [limboole](http://fmv.jku.at/limboole/) with the ``-s`` flag for checking the satisfiability of propositional formulas.
 * ``lexer.mml``  reused from EAHyper/MGHyper.
 * ``Makefile``  based on from MGHyper/EAHyper and added ocamlgraph package to build options
 * ``parser.mly`` adapted from MGHyper/EAHyper for handling path variable quantification add arbitrary positions
@@ -100,6 +96,45 @@ The following files contain functionality adapted from MGHyper/EAHyper.
 
 
 
+[MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) Copyright ©  2018 
+Christopher Hahn <hahn@react.uni-saarland.de>, Tobias Hans <s9tshans@stud.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
+  
+[EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018 
+Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger <stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
 
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+
+[Lingeling](http://fmv.jku.at/lingeling/)
+Copyright (c) 2010-2020 Armin Biere, Johannes Kepler University Linz, Austria
+
+MIT License
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
                                                                               
