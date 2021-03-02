@@ -101,6 +101,7 @@ Christopher Hahn <hahn@react.uni-saarland.de>, Tobias Hans <s9tshans@stud.uni-sa
   
 [EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) Copyright © 2017, 2018 
 Christopher Hahn <hahn@react.uni-saarland.de>, Marvin Stenger <stenger@react.uni-saarland.de> ([Reactive Systems Group](https://www.react.uni-saarland.de/) @ [Saarland University](http://www.uni-saarland.de/nc/en/home.html))
+
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.
