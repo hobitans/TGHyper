@@ -72,9 +72,8 @@ let hyperctl_default_mode () =
         else(
         let sat = check_sat_EA_hyperCTL f in
         if !verbose then
-           match sat with
-                true  -> printf "%s\nis satisfiable.\n%!" (hyperctl_str f)
-              | false -> printf "%s\nis not satisfiable.\n%!" (hyperctl_str f)
+           if sat  then printf "%s\nFormula is satisfiable.\n" (hyperctl_str f)
+           else  printf "%s\nFormula is not satisfiable.\n" (hyperctl_str f)
         else print_endline (bool2sat_str sat)
         )
 
@@ -109,10 +108,9 @@ let buildcheck_implication f g =
   (* only print sizse of the formula size*)
   if !size then (printf "size of formula:%d \n implications is not checked!!!" (getFormulaSize (EnfFormula.check_and_transform impl));  true)
   else (
-    (**check implication *)
+    (*check implication *)
   if !verbose then 
-    print_hyperCTL impl
-  ;
+    print_hyperCTL impl;
   let sat = check_sat_EA_hyperCTL impl in 
   not(sat)
   )
@@ -126,7 +124,7 @@ let hyperctl_impl_mode () =
       if !from_file2 then formula_of_file !formula_file2
       else formula_of_string !formula_string2 in
   let sat = buildcheck_implication f g in
-  if sat then printf "implication does hold" else printf "implication does not hold"
+  if sat then printf "\n implication does hold" else printf "\n implication does not hold"
   
 
 
@@ -148,10 +146,10 @@ let equiv_mode () =
   if sat_left then  (
   if !verbose then printf "check e <- es ...\n";
   let sat_right = buildcheck_implication g f in
-  if sat_right then printf "equiv  holds" else printf "equiv does not hold"
+  if sat_right then printf "equivalenz  holds" else printf "equiv does not hold"
   )
   else
-  printf "equiv does not hold"
+  printf "equivalenz does not hold"
 
 
 (** Adapted from MGHyper and EAHyper tool **)
@@ -214,42 +212,41 @@ let spec_list =
   "-f",
    Arg.String
      (fun f -> formula_file := f; from_file := true; show_help := false),
-   "The file containing the formula to check.";
+   "File with the formula to check.";
    "-fs", Arg.String (fun f -> formula_string := f; from_file := false; show_help := false),
-   "The formula to check.";
-   "-v", Arg.Set verbose, "Be verbose.";
+   "String representation of formula to check example:\"exists p.G(a_p)\".";
+   "-v", Arg.Set verbose, "verbose output";
    "-s", Arg.Set size, "Return only size of formula";
-   "--verbose", Arg.Set verbose, "Be verbose.";
-   "--graph", Arg.Set graph, "If the formula is satisfiable, a graph representation of the assignment is shown. (Requirements Dot Graphviz OcamlGraph ) ";
-   "-r", Arg.Set randomfix, "Make sure aps are assigned to path variables.";
+   "--graph", Arg.Set graph, "If the formula is satisfiable, a graph representation of the assignment is shown. (Requirements Dot Graphviz and OcamlGraph ) ";
+   "-r", Arg.Set randomfix, "Randomly assigna atomic propositions to path variables.";
    "--notfast", Arg.Set notfast, "Replace G F operators by U R and do not use the smaller reduction (default false)";
    "--make-unique", Arg.Set make_unique, "Make in impl/equiv mode the path variable of the formulas unique";
    "--secLTL", Arg.Unit (fun _ -> mode_ref :=  print_secLTL ), "Print SecLTL test formulas";
    "-m",
    Arg.String
      (fun f -> formula_file := f; mode_ref := multi_mode; show_help := false),
-   "The file containing multiple formulae to check.";
+   "File with multiple formulas to check.";
    "-t", Arg.Float (fun t -> timeout := t),
-   "The timeout for one instance( does not stop longer execution of SAT-solver)";
+   "Timeout in float for one instance( not strict:does not stop longer execution of SAT-solver)";
    "-i", Arg.String (fun i -> formula_file2 := i; mode_ref := impl_mode),
-   "The file containing the formula to imply.  \"ip\" is the shared path variable";
+   "File to imply.  \"ip\" is the shared path variable";
    "-is",
    Arg.String
      (fun i ->
         formula_string2 := i; from_file2 := false; mode_ref := impl_mode),
-   "The formula to imply.";
+   "Formula to imply.";
    "-e", Arg.String (fun e -> formula_file2 := e; mode_ref := equiv_mode),
-   "The file containing the formula to equal. \"ip\" is the shared path variable";
+   "File to equal. \"ip\" is the shared path variable";
    "-es",
    Arg.String
      (fun e ->
         formula_string2 := e; from_file2 := false; mode_ref := equiv_mode),
-   "The formula to equal.";
+   "Formula to equal.";
    ]
 
 let arg_failure arg = raise (Arg.Bad ("Bad argument: " ^ arg))
 let usage_msg =
-  "./main.native todo see help"
+  "./main.native \n check satisfiability of ENFHyperCTL formulas, where the next operators are as outermost as possible and not directly under temporal operatos\nList of flags"
 
 let main =
   Arg.parse spec_list arg_failure usage_msg;

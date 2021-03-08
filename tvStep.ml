@@ -1,12 +1,9 @@
+(**
+  Module for handling the different traces on different Steps
+**)
 
-
-
-
-(* module TVLoopRun    = Map.Make(String)     tv -> loop * loop one   
-val mutable tvLoopRun = TVLoopRun.empty
-*)
-module TVLoopStart  = Map.Make(String)  (*   tv -> loop * loop one   *)
-module TVStep    = Map.Make(String)  (*   tv -> loop * loop one   *)
+module TVLoopStart  = Map.Make(String)  (*   tv -> loop    *)
+module TVStep    = Map.Make(String)  (*   tv -> step   *)
 
 exception TvStepError of string
 
@@ -18,11 +15,10 @@ class tvset k_b =
 
     val mutable tvLoopStart = TVLoopStart.empty
     val mutable tvStep = TVStep.empty
-   (* val mutable tvStep = Hashtbl.create 100 ; *)
     val mutable k = k_b ;
     val mutable lcm = 0 ; 
-
-    val mutable num_k = []; (* List of tv in step k, where no loop is set  *)
+    (* List of tv in step k, where no loop is set  *)
+    val mutable num_k = []; 
 
     method getParentTuple = 
       begin
@@ -84,7 +80,6 @@ class tvset k_b =
 
     method addToTVStep tv step = 
               tvStep <- TVStep.add tv step tvStep;
-         (*   Hashtbl.replace tvStep tv step  *)
     
     method addToTVLoopStart tv loop =
             tvLoopStart <- TVLoopStart.add tv loop tvLoopStart;
@@ -100,11 +95,10 @@ class tvset k_b =
     (* setter *)
     method addStepsAll n = 
           tvStep  <- TVStep.mapi (fun k v ->  (v+n) ) tvStep;
-     (*   Hashtbl.filter_map_inplace (fun _ v -> Some (v+n) ) tvStep *)
+
 
     method setStep tv n =
           self#addToTVStep tv n
-    (*    Hashtbl.replace tvStep tv n *)
 
     method setLoop tv l =
         tvLoopStart <- TVLoopStart.add tv l tvLoopStart
@@ -168,7 +162,6 @@ class tvset k_b =
 
     method setBoundAndStep tv i =
           self#addToTVStep tv i; 
-     (*   Hashtbl.replace tvStep tv i;*)
           self#addToTVLoopStart tv i;
         
 
@@ -179,17 +172,11 @@ class tvset k_b =
           let bound = self#getBound tv in
           if bound == 0 
           then  (
-                    (*Printf.printf "No Bound set for %s -> %d " tv i; *)
                     self#addToNumK tv;
                     i
           )
           else
             (
-              (* run twice set to true
-                todo -> check only set for parent ?????
-              
-            Printf.printf "Unrolled twice set for %s -> %d " tv bound; *)
-           (* self#setRunTrue tv; ->  moved *)
             bound
             )
 
@@ -205,7 +192,6 @@ class tvset k_b =
     method resetStepsToLoop =
         begin 
           num_k <- [];
-        (*  Hashtbl.filter_map_inplace (fun tv i -> Some (self#getStepOrBound tv i) ) tvStep; *)
             tvStep <- TVStep.mapi (fun tv i -> (self#getStepOrBound tv i) ) tvStep; 
             num_k
         end

@@ -1,26 +1,36 @@
 digraph G {
-  "p_0-0[a ]" [shape=box, ];
-  "p_0-1[a ]" [shape=box, ];
-  "p_0-2[a ]" [shape=box, ];
-  "r_p0_0-1[]" [shape=box, ];
-  "r_p0_0-2[]" [shape=box, ];
-  "r_p0_1-1[]" [shape=box, ];
-  "r_p0_1-2[]" [shape=box, ];
-  "r_p0_2-1[]" [shape=box, ];
-  "r_p0_2-2[]" [shape=box, ];
+  "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-1[s1 ]" [shape=box, label="s1 ", ];
+  "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-2[s1 o ]" [shape=box, label="s1 o ", ];
+  "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-1[s1 o ]" [shape=box, label="s1 o ", ];
+  "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-2[o ]" [shape=box, label="o ", ];
+  "pv1i0Ipv2i1I_0-0[l s1 s0 o ]" [shape=box, label="l s1 s0 o ", ];
+  "pv1i0Ipv2i1I_0-1[s1 o ]" [shape=box, label="s1 o ", ];
+  "pv1i0Ipv2i1I_0-2[o ]" [shape=box, label="o ", ];
+  "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-1[s1 o ]" [shape=box, label="s1 o ", ];
+  "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-2[o ]" [shape=box, label="o ", ];
   
   
-  "p_0-0[a ]" -> "p_0-1[a ]" [color="#00002A", ];
-  "p_0-0[a ]" -> "r_p0_0-1[]" [color="#00002A", ];
-  "p_0-1[a ]" -> "p_0-2[a ]" [color="#00002A", ];
-  "p_0-1[a ]" -> "r_p0_1-1[]" [color="#00002A", ];
-  "p_0-2[a ]" -> "p_0-1[a ]" [color="#00002A", ];
-  "p_0-2[a ]" -> "r_p0_2-1[]" [color="#00002A", ];
-  "r_p0_0-1[]" -> "r_p0_0-2[]" [color="#00002A", ];
-  "r_p0_0-2[]" -> "r_p0_0-1[]" [color="#00002A", ];
-  "r_p0_1-1[]" -> "r_p0_1-2[]" [color="#00002A", ];
-  "r_p0_1-2[]" -> "r_p0_1-1[]" [color="#00002A", ];
-  "r_p0_2-1[]" -> "r_p0_2-2[]" [color="#00002A", ];
-  "r_p0_2-2[]" -> "r_p0_2-1[]" [color="#00002A", ];
+  "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-1[s1 ]" -> "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-2[s1 o ]" [
+  color="#00002A", ];
+  "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-2[s1 o ]" -> "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-1[s1 ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-1[s1 o ]" -> "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-2[o ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-2[o ]" -> "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-1[s1 o ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i1I_0-0[l s1 s0 o ]" -> "ip_pv1i0Ipv2i0Ipv1i0Ipv2i1I00_0-1[s1 ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i1I_0-0[l s1 s0 o ]" -> "pv1i0Ipv2i0I_pv1i0Ipv2i1I0_0-1[s1 o ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i1I_0-0[l s1 s0 o ]" -> "pv1i0Ipv2i1I_0-1[s1 o ]" [color="#00002A",
+                                                               ];
+  "pv1i0Ipv2i1I_0-0[l s1 s0 o ]" -> "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-1[s1 o ]" [
+  color="#00002A", ];
+  "pv1i0Ipv2i1I_0-1[s1 o ]" -> "pv1i0Ipv2i1I_0-2[o ]" [color="#00002A", ];
+  "pv1i0Ipv2i1I_0-2[o ]" -> "pv1i0Ipv2i1I_0-1[s1 o ]" [color="#00002A", ];
+  "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-1[s1 o ]" -> "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-2[o ]" [
+  color="#00002A", ];
+  "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-2[o ]" -> "pv1i0_ippv1i0Ipv2i0Ipv1i0Ipv2i1I000_0-1[s1 o ]" [
+  color="#00002A", ];
   
   }

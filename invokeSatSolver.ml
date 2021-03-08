@@ -3,8 +3,6 @@ open Functions
 let graph = ref false
 let verbose = ref false
 
-let is_SAT_OUTPUT o =  
-  str_contains o "% SATISFIABLE"
 
 let invoke_SATSolver bool_form_str pvmap_lst k =
 

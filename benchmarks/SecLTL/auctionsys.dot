@@ -1,13 +1,13 @@
 digraph G {
-  "p1_0-0[]" [shape=box, ];
-  "p1_0-1[b3 ]" [shape=box, ];
-  "p1_0-2[b2 ]" [shape=box, ];
-  "p1_0-3[cA ]" [shape=box, ];
-  "p1_0-4[wA cA ]" [shape=box, ];
-  "p2_p10_0-1[b2 b1 ]" [shape=box, ];
-  "p2_p10_0-2[b3 ]" [shape=box, ];
-  "p2_p10_0-3[cA ]" [shape=box, ];
-  "p2_p10_0-4[wA cA ]" [shape=box, ];
+  "p1_0-0[]" [shape=box, label="", ];
+  "p1_0-1[b3 ]" [shape=box, label="b3 ", ];
+  "p1_0-2[b2 ]" [shape=box, label="b2 ", ];
+  "p1_0-3[cA ]" [shape=box, label="cA ", ];
+  "p1_0-4[wA cA ]" [shape=box, label="wA cA ", ];
+  "p2_p10_0-1[b2 b1 ]" [shape=box, label="b2 b1 ", ];
+  "p2_p10_0-2[b3 ]" [shape=box, label="b3 ", ];
+  "p2_p10_0-3[cA ]" [shape=box, label="cA ", ];
+  "p2_p10_0-4[wA cA ]" [shape=box, label="wA cA ", ];
   
   
   "p1_0-0[]" -> "p1_0-1[b3 ]" [color="#00002A", ];

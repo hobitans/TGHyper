@@ -16,7 +16,10 @@ type boolformula =
   | BImpl of boolformula * boolformula
 
 
-(* Adapted from DQBF Formulas in qbf_formula.ml **)
+(* Adapted from DQBF Formulas in MGHyper **)
+
+
+
   let rec str_ buf f =
     let adstr = Buffer.add_string buf in
       match f with

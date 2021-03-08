@@ -1,17 +1,17 @@
 digraph G {
-  "p1_0-0[sub ]" [shape=box, ];
-  "p1_0-1[upt ]" [shape=box, ];
-  "p1_0-2[rvw ]" [shape=box, ];
-  "p1_0-3[acc ]" [shape=box, ];
-  "p1_0-4[acc cls ]" [shape=box, ];
-  "p1_0-5[acc rel ]" [shape=box, ];
-  "p1_0-6[con acc ]" [shape=box, ];
-  "p2_p10_0-1[upt ]" [shape=box, ];
-  "p2_p10_0-2[rvw ]" [shape=box, ];
-  "p2_p10_0-3[rej ]" [shape=box, ];
-  "p2_p10_0-4[rej cls ]" [shape=box, ];
-  "p2_p10_0-5[rej rel ]" [shape=box, ];
-  "p2_p10_0-6[rej sry ]" [shape=box, ];
+  "p1_0-0[sub ]" [shape=box, label="sub ", ];
+  "p1_0-1[upt ]" [shape=box, label="upt ", ];
+  "p1_0-2[rvw ]" [shape=box, label="rvw ", ];
+  "p1_0-3[acc ]" [shape=box, label="acc ", ];
+  "p1_0-4[acc cls ]" [shape=box, label="acc cls ", ];
+  "p1_0-5[acc rel ]" [shape=box, label="acc rel ", ];
+  "p1_0-6[con acc ]" [shape=box, label="con acc ", ];
+  "p2_p10_0-1[upt ]" [shape=box, label="upt ", ];
+  "p2_p10_0-2[rvw ]" [shape=box, label="rvw ", ];
+  "p2_p10_0-3[rej ]" [shape=box, label="rej ", ];
+  "p2_p10_0-4[rej cls ]" [shape=box, label="rej cls ", ];
+  "p2_p10_0-5[rej rel ]" [shape=box, label="rej rel ", ];
+  "p2_p10_0-6[rej sry ]" [shape=box, label="rej sry ", ];
   
   
   "p1_0-0[sub ]" -> "p1_0-1[upt ]" [color="#00002A", ];

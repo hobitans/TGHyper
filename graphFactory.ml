@@ -32,17 +32,23 @@ module G =  Graph.Persistent.Digraph.ConcreteBidirectionalLabeled(V)(E)
 let vertex_to_string v = 
    let (pv,step,lst) = v in 
    let nodeid = Printf.sprintf "%s-%d" pv step in
-   "\""^nodeid^"["^(lst_to_string_ lst)^"]\""       
+   "\""^nodeid^"["^(lst_to_string_ lst)^"]\""
+
+(* Dot module for printing ap only *)
+let vertex_to_ap v = 
+   let (pv,step,lst) = v in 
+   let nodeid = Printf.sprintf "%s-%d" pv step in
+   (lst_to_string_ lst)
 
 module Dot = Graph.Graphviz.Dot(
    struct
       include G
-      let edge_attributes ( a,e,b ) = [`Color 42]
+      let edge_attributes ( _,_,_ ) = [`Color 42]
       let default_edge_attributes _ = []
       let get_subgraph _ = None
-      let vertex_attributes _ = [`Shape `Box]
       let vertex_name v = vertex_to_string v
       let default_vertex_attributes _ = []
+      let vertex_attributes v = [`Label (vertex_to_ap v); `Shape `Box] 
       let graph_attributes _ = []
    end
       )
@@ -182,9 +188,9 @@ let build_graph pvmap_lst k =
    let file = open_out_bin dotfile in                                                               
    Dot.output_graph file !g;
    
-   let pngfile = "./files/out.png" in
+   let pdffile = "./files/out.pdf" in
    (* build graph  from dot *)
-   let dotcall =  " dot -Tpng "^dotfile^" -o "^pngfile^"; open "^pngfile^";" in
+   let dotcall =  " dot -Tpdf "^dotfile^"  -o "^pdffile^"; open "^pdffile^";" in
    let (_,_) = Unix.open_process dotcall in
    Printf.printf "Open Graph ... "
 

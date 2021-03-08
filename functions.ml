@@ -7,7 +7,9 @@ Some of the function are from MGHyper, respectivly EAHyper, and where modify for
 open Printf
 
 (* Print f *)
-let print_list lst  = printf "[";List.iter (printf "%s,")  lst;printf "]"
+let print_list lst  = printf "[";
+                      List.iter (printf "%s,")  lst;
+                      printf "]"
 
 let print_lst lst  = Printf.printf "[\n"; List.iter (Printf.printf "%s \n")  lst; Printf.printf "\n]"
 
@@ -23,8 +25,9 @@ let rec lst_to_string_ lst =
     printf "Execution time of Instance: %f\n" time;
     sat
 
+
 (* 
-The following functions are based on MGHyper/EAHyper
+The following functions are reused from or based on MGHyper/EAHyper
 *)
 let bool2sat_str sat = if sat then "sat" else "unsat"
 
@@ -62,4 +65,7 @@ let  dupl_exists  xs =
 let str_contains s1 s2 =
   let re = Str.regexp_string s2 in
   try ignore (Str.search_forward re s1 0); true with Not_found -> false
+
+  let is_SAT_OUTPUT o =  
+    str_contains o "% SATISFIABLE"
 

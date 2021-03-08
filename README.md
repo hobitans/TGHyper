@@ -1,35 +1,34 @@
 # TGHyper
-### Tree Generator for checking satisfiability of HyperCTL* formula in ENF.
+### Tree Generator for Deciding HyperCTL* Formulas in ENF
 ****
 
 *Branching-time and hyperproperties* can express different specifications for verifying the correctness of systems.
 *Branching-time properties* consider the branching structure of execution trees and can refer to the exact points of non-deterministic decisions in a system.
-*Hyperpoperties* compare multiple execution traces of a system and are able to express the information flow properties.
+*Hyperpoperties* compare multiple execution traces of a system and are able to express information flow properties.
 
-The hyperlogic *HyperCTL\** an extension of LTL with quantification over path variables at arbitrary positions
-is able to express the combination of *branching-time and hyperpropeties*.
+The hyperlogic *HyperCTL\**, an extension of LTL with quantification over path variables at arbitrary positions,
+can express the combination of *branching-time and hyperproperties*.
 HyperCTL enables us to express security policies that follow precisely the flow of information in non-deterministic systems.
 
-TGHyper is the first decision procedure for HyperCTL* formulas in exists-forall normal form(ENF-HyperCTL*).
+TGHyper is the first tool for deciding for HyperCTL* formulas in exists-forall normal form(ENF-HyperCTL*).
 For satisfiable formulas, TGHyper can return satisfying trees.
 
 ## Applications
 TGHyper can detect if an ENF-HyperCTL* formula is a tautology or unsatisfiable. 
-This is useful in a preprocessing step of model checking ([MCHyper](https://www.react.uni-saarland.de/tools/mchyper/)) 
-and synthesis procedures.  
+This is useful in a preprocessing step of model checking ([MCHyper](https://www.react.uni-saarland.de/tools/mchyper/)), synthesis, or monitoring procedures.  
 Furthermore, TGHyper can prove or disprove certain implications between different combinations of hyper- and branching-time properties formalized in ENF-HyperCTL*.
 By returning trees that disprove implications, it supports the understanding of the relationship between different specifications even more.
 ***
-TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Hans 2021.
+TGHyper is part of the Master Thesis ''Algorithms for Deciding HyperCTL*'' submitted by Tobias Horst Hans 2021.
 Reactive System Group - Faculty of Mathematics and Computer Science -  Department of Computer Science -  Saarland University
 
-*TGHyper* is based on [MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf) a semi-decision procedure for arbitrary HyperLTL formulas. 
-*MGHyper* is an extension of [EAHyper](https://www.react.uni-saarland.de/tools/eahyper/) a satisfiability solver for formulas in the decidable fragments of HyperLTL.
-TGHyper adapts the input format, mode handling functionality and reuses most flags of *MGHyper/EAHyper*. This enables users and scripts, already familiar with those tools,
-easily to adapt to TGHyper.
-TGHyper adapted/reuse formula types, parser, and lexer of *MGHyper/EAHyper* for handling quantified path variables at arbitrary positions.
-Also, functionality for handling quantified boolean formulas and invoking the respective QBFSAT Solver is adapted to handling boolean formulas and invoking [limboole](http://fmv.jku.at/limboole/).
-limboole uses [Lingeling](http://fmv.jku.at/lingeling/) as an underlying Sat-Solver.
+*TGHyper* is based on [MGHyper](https://www.react.uni-saarland.de/publications/mghyper.pdf), a semi-decision procedure for arbitrary HyperLTL formulas. 
+*MGHyper* is an extension of [EAHyper](https://www.react.uni-saarland.de/tools/eahyper/), a satisfiability solver for formulas in the decidable fragments of HyperLTL.
+TGHyper adapts the input format, mode handling functionality and reuses most flags of *MGHyper/EAHyper*. This enables users, already familiar with those tools,
+easily to adapt their scripts to TGHyper.
+TGHyper adapts/reuses formula types, parser, and lexer of *MGHyper/EAHyper* for handling quantified path variables at arbitrary positions.
+Also, functionality for handling quantified boolean formulas and invoking the respective QBFSAT-Solver were adapted to handling boolean formulas and invoking [limboole](http://fmv.jku.at/limboole/).
+Limboole uses [Lingeling](https://github.com/arminbiere/lingeling) as an underlying Sat-Solver.
 The list of adapted files is displayed below.
 
 
@@ -55,19 +54,19 @@ TGHyper can also construct the satisfying tree by invoking the ``--graph`` flag.
 
 
 ### Files
-* ``enfFormula.ml``     check and translate ENF-HyperCTL\* formulas to E\*HyperCTL\*
-* ``unrolling.ml``      unroll E\*HyperCTLs formulas into propositional formulas, based on the unrolling rules for [bounded LTL model checking](http://fmv.jku.at/papers/BiereCimattiClarkeStrichmanZhu-Advances-58-2003-preprint.pdf).
+* ``enfFormula.ml``     check and translates ENF-HyperCTL\* formulas to E\*HyperCTL\*.
+* ``unrolling.ml``      unrolls E\*HyperCTLs formulas into propositional formulas.
 * ``tvStep.ml``         handles the trace variables step setting functionality.
-* ``graphFactory.ml``   builds satisfying trees based on the PVMAP and satisfying assignment.
-                    It uses [Ocamlgraph](https://opam.ocaml.org/packages/ocamlgraph/ocamlgraph.1.8.8/) for creating dot files representing satisfying trees
-                    and [dot - graphviz version 2.44.1](https://graphviz.org) for creating png image based on the dot files.
-* ``README.md``         this file
-* ``./files``    contain the following files.
+* ``graphFactory.ml``   builds satisfying trees based on the PVMAP and a satisfying assignment.
+                    It uses [Ocamlgraph](https://opam.ocaml.org/packages/ocamlgraph/ocamlgraph.1.8.8/) for creating dot-files representing satisfying trees
+                    and [dot - graphviz version 2.44.1](https://graphviz.org) for creating pdf image based on the dot-files.
+* ``README.md``         this file.
+* ``./files``    contains the following files.
     - ``unr_form.in`` file, string representation of propostional formula used for [limboole](http://fmv.jku.at/limboole/) call
-    - ``out.dot`` an example dot file, representing a witness tree
-    - ``out.png`` an example png file, representing a witness tree as a picture
-* ``./solvers``      directory of SAT solvers, contain only [limboole](http://fmv.jku.at/limboole/) SAT*Solver
-                    ``limbooleOSX`` can be replaced by any other SAT-Solver for propositional formulas, not in CNF.
+    - ``out.dot`` an example dot file, representing a witness tree.
+    - ``out.pdf`` an example pdf file, representing a witness tree as a picture.
+* ``./solvers``      directory of SAT solvers, expected [limboole](http://fmv.jku.at/limboole/) SAT*Solver as ``limbooleOSX``. 
+                    Limboole can be replaced by any other SAT-Solver for propositional formulas, not in CNF.
                     Limboole can return CNF formulas (``-d`` flag). By adapting ``invokeSatSolver.ml``, it is possible to use *TGHyper* with other SAT solvers.
 * ``randHyperCTL.ml`` assigns path variables randomly to atomic propositions, where the atomic propositions are in the scope of the respective path variable. 
 * ``secLTLTest.ml``     models the hide-operator of secLTL as HyperCTL* formulas, can be adapted to construct the formulas in the secLTL benchmark.
@@ -76,22 +75,23 @@ TGHyper can also construct the satisfying tree by invoking the ``--graph`` flag.
 #### Files adapted from MGHyper/EAHyper
 The following files contain functionality adapted from MGHyper/EAHyper.                    
 * ``main.ml`` is adapted from MGHyper/EAHyper. We adapted the mode handling procedures and reused most of the flags from MGHyper/EAHyper, 
-            so that users/scripts familiar with those tools can easily adapt.
-            We add inter alia the following functionality/flags:
-    - ``-r`` randomly assign path variables ``pv`` to atomic propositions ``ap``, where the pv scopes over ``ap``.
+            so that users/scripts familiar with those tools can easily adapt. We reuse the file and string input handling methods of MGHyper/EAHyper.
+            We add, among other things, the following functionality/flags:
+    - ``-r`` randomly assign path variables ``pv`` to atomic propositions ``ap``, where the ``pv`` scopes over ``ap``.
     - ``--graph`` If the formula is satisfiable, a graph representation of the assignment is shown.
     - ``--notfast`` Replace G F operators by U R and do not use the smaller reduction (default false).
     - ``--secLTL`` Print a SecLTL formula from our test set to adapt the formula adapt file ``secLTLTest.ml``.
-* ``tg_hyperCTL.ml``    adapted from MGHyper. Contains the function to step-wise unrolling of the formulas for incrementally larger bounds until a satisfiable assignment is found.
-                            The actual unrolling is done in ``unrolling.ml`` and ``tvStep.ml``.
-* ``formulaHyperCTL.ml``    adapted from MGHyper/EAHyper HyperLTL types and function, for handling path variable quantification at arbitrary positions.
-* ``invokeSatSolver.ml``    adapted on MGHyper/EAHyper for handling arbitrary propositional formulas and
+* ``tg_hyperCTL.ml``    based on MGHyper. Contains functions handling the incrementing of the unrolling bounds until a satisfiable assignment is found.
+                        The actual functions for unrolling the formulas are in ``unrolling.ml`` and ``tvStep.ml``.
+* ``formulaHyperCTL.ml``    adapted from MGHyper/EAHyper HyperLTL types and functions for handling path variable quantification at arbitrary positions.
+                            We adapted functions for translating into NNF, unifying, and the scope checking HyperCTLs formulas.
+* ``invokeSatSolver.ml``    based on MGHyper/EAHyper. It handles arbitrary propositional formulas and
                             invoke [limboole](http://fmv.jku.at/limboole/) with the ``-s`` flag for checking the satisfiability of propositional formulas.
 * ``lexer.mml``  reused from EAHyper/MGHyper.
-* ``Makefile``  based on from MGHyper/EAHyper and added ocamlgraph package to build options
-* ``parser.mly`` adapted from MGHyper/EAHyper for handling path variable quantification add arbitrary positions
-* ``function.ml``     contains functions used in several modules; some of these functions are based on EAHyper/MGHyper
-* ``formulaBool.ml`` adapted from Quantified Boolean Formulas methods in MGHyper
+* ``Makefile``  based on  MGHyper/EAHyper. We added ocamlgraph package to the build options.
+* ``parser.mly`` adapted from MGHyper/EAHyper for handling path variable quantification add arbitrary positions.
+* ``function.ml``     contains functions used in several modules; some of these functions are based on EAHyper/MGHyper.
+* ``formulaBool.ml`` adapted from Quantified Boolean Formulas methods in MGHyper.
 
 
 
@@ -116,7 +116,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
 
-[Lingeling](http://fmv.jku.at/lingeling/)
+[Lingeling](https://github.com/arminbiere/lingeling)
 Copyright (c) 2010-2020 Armin Biere, Johannes Kepler University Linz, Austria
 
 MIT License

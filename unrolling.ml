@@ -215,13 +215,7 @@ let checkForTermination tvset f k =
 (*** Set Loop Inv and call unrolling ***)
 (***************************************)
 let rec unroll_ f k tvset loop step  = 
-  (* 
-    printf "unroll->";
-    print_hyperCTL f;
-    tvset#print;
-    print_newline();
 
-    *)
     setLoopInvariants tvset f k loop step
 
 and setLoopInvariants tvset f k loop step =
@@ -234,8 +228,7 @@ and setLoopInvariants tvset f k loop step =
   (* return f, if no invariant is reached and unroll further  *)
 
 and introduceLoopInv tvset f k loop step num_k  =
- (* sprintf "~";
-  print_list num_k; sprintf "\n"; *)
+
   match num_k with
     | [] -> unroll__ f k tvset loop step
     | hd::tl -> buildInvOr tvset f k loop step hd tl 
@@ -250,22 +243,13 @@ and buildInvOne tvset f k  loop step  tv i num_k =
     let invVar = BVar(inv,tv,i) in
     tvset_f#setBoundAndStep tv i;
     let inv_unroll  = introduceLoopInv tvset_f f k loop step num_k in
-  (*  sprintf "-%d &&&&&&&&&&&&&&&&&&&&&&n" i;
-    tvset_f#print;
-    tvset#print; *)
     impl invVar inv_unroll
-    (* todo: impl invVar inv_unroll *)
+
 
 (**********************************)
 (*********UNROLLING***RULES********)
 (**********************************)
 and unroll__ f k tvset loop step = 
-(* sprintf "*************\n";
-sprintf "Current unroll:%d\n" k;
-tvset#print;
-print_hyperCTL f;
-sprintf "*************\n"; *)
-(* reset tvset  *)
     match f with
         True              -> BTrue
       | False             -> BFalse
@@ -473,7 +457,6 @@ let pvmap_to_lst () =
 
 
 let unroll f k ap =
-  (****)
   init();
   (* check for empty formula, without aps -> add dummy ap **)
   let ap_notempty = 
@@ -488,7 +471,8 @@ let unroll f k ap =
 
   let unrollFormula = unroll__ f !k tvset false 0 in 
   let loopFormula = loopAll !k in
-  let formula_lst = [unrollFormula;loopFormula; BTrue; BEquiv(BNeg(BTrue),BFalse)] in (* lst of boolean formulas,  unroole :: loop conditions :: true :: false *)
+  (* lst of boolean formulas,  unrolled :: loop conditions :: true :: false *)
+  let formula_lst = [unrollFormula;loopFormula; BTrue; BEquiv(BNeg(BTrue),BFalse)] in 
   let boolFormula = BAndList( formula_lst ) in
   let bool_form_str = limbool_str boolFormula in
   if !verbose then

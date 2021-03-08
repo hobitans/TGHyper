@@ -1,10 +1,10 @@
 open EnfFormula
 open Printf
 open FormulaHyperCTL
+open Functions
 
 (*######*)
 (* Vars *)
-let bool2sat_str sat = if sat then "sat" else "unsat"
 
 let verbose = ref false
 let timeout = ref 0.0
@@ -21,9 +21,9 @@ let check_sat_E_hyperCTL_ f k qd_max aps  =
 let check_sat_E_hyperCTL f =
     let aps = getAPs f in
     let k_max =  getMaxUnrollingBound f in (* 2^|f| * |f| *)
-
-    let qd_max = ref (getQuantDepth f) in (* return the max alternation of quantifier and temp ops *)
-    let k = ref 3 in      (*  start variable of unrolling  TODO: -> heuristic  *)
+    (* return the max alternation of quantifier and temp ops *)
+    let qd_max = ref (getQuantDepth f) in 
+    let k = ref 3 in      
     let run = ref true in
     let sat = ref false in 
     let start = Unix.gettimeofday () in
