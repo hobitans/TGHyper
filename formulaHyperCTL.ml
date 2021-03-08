@@ -137,30 +137,6 @@ let rec replacePVbyTV pv tv f =
     | Forall (x, f) -> Forall (x, replacePVbyTV pv tv f)
 
 
-(* unify: make two hyperctl formula use distinc set of path vars  adapted from MGHyper(Tobias Hans 2018) and EAHyper Tool(Marvin Stenger 2016)*)
-let rec uniquify_ f s =
-      match f with
-          True -> True
-        | False -> False
-        | Var (x, y) -> Var (x, y ^ "" ^ s)
-        | And (f, g) -> And (uniquify_ f s, uniquify_ g s)
-        | Or (f, g) -> Or (uniquify_ f s, uniquify_ g s)
-        | Impl (f, g) -> Impl (uniquify_ f s, uniquify_ g s)
-        | Equiv (f, g) -> Equiv (uniquify_ f s, uniquify_ g s)
-        | Until (f, g) -> Until (uniquify_ f s, uniquify_ g s)
-        | WeakUntil (f, g) -> WeakUntil (uniquify_ f s, uniquify_ g s)
-        | Release (f, g) -> Release (uniquify_ f s, uniquify_ g s)
-        | Not f -> Not (uniquify_ f s)
-        | Next f -> Next (uniquify_ f s)
-        | Finally f -> Finally (uniquify_ f s)
-        | Globally f -> Globally (uniquify_ f s)
-        | Exists (x, f) -> Exists (x ^ "" ^ s, uniquify_ f s)
-        | Forall (x, f) -> Forall (x ^ "" ^ s, uniquify_ f s)
-      
-
-let uniquify f g = uniquify_ f "f", uniquify_ g "g"
-
-
 (* hyperCTL_str: print HyperCTL formula *)
 let rec hyperctl_str_ buf f =
   let abuf = Buffer.add_string buf in

@@ -447,7 +447,7 @@ let rec replacePVbyPV pv tv f =
 
                   
 
-(** enumerate the forall exists interaction for path variba pv with list pvlust in f **)
+(** enumerate the forall exists interaction for path variable pv with list pvlust in f **)
   let rec enumerate_forall_exists_ fpv pvlst f i =
     if (List.length pvlst) == 1 then  
     (
@@ -465,7 +465,6 @@ let rec replacePVbyPV pv tv f =
 
   let comparePV pv1 pv2 =
       (compare pv1 pv2) == 0
-
 
 
   (* only call if at least one quant is in set  *)
@@ -591,7 +590,7 @@ let rec replacePVbyPV pv tv f =
         pv^"I"^fpv^"I"
     
     (**
-    Main enumerate forall exists function, for enumerating preceding and not preceding path variables 
+    Find positon of  forall pv to enumerat forall exists preceding and not preceding path variables 
     **)
     let rec enumerate_forall_epv fpv parentPV directPVs new_epv_lst e_f = 
           let rec_ f = enumerate_forall_epv fpv parentPV directPVs new_epv_lst f in

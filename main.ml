@@ -41,7 +41,6 @@ let size = ref false
 (* Vars Multimode*)
 let randomfix = ref false
 let notfast = ref false
-let make_unique = ref false
 let secLTL = ref false
 
 (*set vars in TGHyperCTL*)
@@ -102,11 +101,6 @@ let buildcheck_implication f g =
   (* remove parent trace *)
  let f =  removePrntTrace f in
  let g =  removePrntTrace g in
-  let (f,g) = 
-    if !make_unique
-    then uniquify f g
-    else f,g
-    in
   let impl = Exists( "ip",(And( f, Not(g))) ) in
   (* only print sizse of the formula size*)
   if !size then (printf "size of formula:%d \n implications is not checked!!!" (getFormulaSize (EnfFormula.check_and_transform impl));  true)
@@ -221,7 +215,6 @@ let spec_list =
    "--graph", Arg.Set graph, "If the formula is satisfiable, a graph representation of the assignment is shown. (Requirements Dot Graphviz and OcamlGraph ) ";
    "-r", Arg.Set randomfix, "Randomly assigna atomic propositions to path variables.";
    "--notfast", Arg.Set notfast, "Replace G F operators by U R and do not use the smaller reduction (default false)";
-   "--make-unique", Arg.Set make_unique, "Make in impl/equiv mode the path variable of the formulas unique";
    "--secLTL", Arg.Unit (fun _ -> mode_ref :=  print_secLTL ), "Print SecLTL test formulas";
    "-m",
    Arg.String
