@@ -242,7 +242,7 @@ and getPVs__ f g exx all =
 (********)
 
 
-
+(* check if a forall quantfier exists for the given pv*)
   let check_equal elm fpv =
     match elm with 
       QuantCon( _,_,_ ) | ExistsPV(_,_) | TempOps(_,_) | End -> false
@@ -290,7 +290,7 @@ let replaceVarPVbyPv_  pv tv x y id=
   else (MVar(id,x,tv))
 
 
-
+(* replace path variabpe pv by trace variable tv in formula f *)
 let rec replacePVbyPV pv tv f =
   match f with
       MTrue -> MTrue
@@ -380,8 +380,6 @@ let rec replacePVbyPV pv tv f =
   
     let get_fpv_pvlst_id_ fpv e_f =
       let id, pvlst = get_pv_set_id_  fpv e_f in
-      (* todo  remove _ *)
-
       let parent = List.hd pvlst in
       let childs = List.tl pvlst in
       let lst = foldr_rem_dupl_star childs in
@@ -449,9 +447,8 @@ let rec replacePVbyPV pv tv f =
 
                   
 
-
+(** enumerate the forall exists interaction for path variba pv with list pvlust in f **)
   let rec enumerate_forall_exists_ fpv pvlst f i =
-    (* todo: catch case with only one element *)
     if (List.length pvlst) == 1 then  
     (
       let hd = List.hd pvlst in
@@ -539,6 +536,7 @@ let rec replacePVbyPV pv tv f =
     id := (!id+1);
     re
 
+  (**  transform fomrula to MAP formula with id for every node **)
   let rec map_transform_ ff =    
       match ff with
         True -> MTrue
@@ -592,6 +590,9 @@ let rec replacePVbyPV pv tv f =
     let buildCombPV  pv fpv =
         pv^"I"^fpv^"I"
     
+    (**
+    Main enumerate forall exists function, for enumerating preceding and not preceding path variables 
+    **)
     let rec enumerate_forall_epv fpv parentPV directPVs new_epv_lst e_f = 
           let rec_ f = enumerate_forall_epv fpv parentPV directPVs new_epv_lst f in
             match e_f with 
@@ -602,9 +603,9 @@ let rec replacePVbyPV pv tv f =
                                             then enumerate_forall_exists pv (directPVs@new_epv_lst) g
                                             else MForall (id,pv, rec_ g)
                 | MExists (id,pv, g)    -> if (List.mem (buildCombPV pv fpv) new_epv_lst)
-                                           then (
+                                           then ( (* if in indirect scope ensure same paths  *)
                                              let ap_globally = MPathEqual(pv,(buildCombPV pv fpv))      in (* MGlobally (id, MEquiv(id, MVar(id,"a",pv), MVar(id,"a",pv^"="^fpv) )) in *)
-                                             MExists (id,pv, MAnd(id, ap_globally , rec_ g)) (* todo ap compare *)
+                                             MExists (id,pv, MAnd(id, ap_globally , rec_ g)) 
                                            )
                                            else MExists (id,pv,rec_ g)
                 | MNot (id,g)           -> MNot (id, rec_ g)
@@ -667,7 +668,7 @@ let rec replacePVbyPV pv tv f =
       
 
     (*
-     unroll the formula at the star of the entry point 
+     unroll the formula at the start of the entry point 
     *)
     let rec unroll_at_parent fpv pid parentPV epvlst e_f = 
       let rec_ f =  unroll_at_parent  fpv pid parentPV epvlst f in
