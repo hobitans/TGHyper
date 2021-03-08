@@ -137,8 +137,6 @@ let loopAdd tv k lst lst_loops =
 
 
     
-
-
 (**
   anchors newTV on parentTV at step 
     -> special case for first anchor
@@ -150,7 +148,7 @@ let anchor parentTV parentStep newTV step =
 
 
 (*
-functions wich update the loop invariants, if k is reached
+functions which update the loop invariants, if k is reached
 *)
 let isInfTempOp f = 
   match f with 
@@ -165,35 +163,6 @@ let getOverOrUnderApprox f =
     | Release (_,_) -> True
     | Until (_,_) -> False
     | _ -> raise Not_found
-
-  (* depriciated *)
-let checkForTermination tvset f k =
-  assert(false);
-  let parent, step = tvset#getParentTuple in
-  let complete = tvset#isRun parent in
-  (****
-  printf "Check for termination:%s %d<%d" parent step k ;
-  print_hyperCTL f;
-  ***)
-  if ( isInfTempOp f && step == k )
-  then
-  (
-    if (complete) 
-    then(
-      (getOverOrUnderApprox f), true, tvset
-      )
-    else
-    (
-      (* set termination indicator
-      tvset#setRunTrue parent; *)
-      f,false, tvset
-    )
-  )
-  else
-  (
-    f,false, tvset
-  )
-
 
 
   (* reset existing steps *)

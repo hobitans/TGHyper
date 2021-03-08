@@ -37,7 +37,6 @@ let vertex_to_string v =
 (* Dot module for printing ap only *)
 let vertex_to_ap v = 
    let (pv,step,lst) = v in 
-   let nodeid = Printf.sprintf "%s-%d" pv step in
    (lst_to_string_ lst)
 
 module Dot = Graph.Graphviz.Dot(

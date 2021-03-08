@@ -31,8 +31,8 @@ type boolformula =
           | BOr (g, h)  -> adstr "("; str_ buf g; adstr "|"; str_ buf h; adstr ")"
           | BImpl (g, h) ->  adstr "(("; str_ buf g; adstr " )->("; str_ buf h; adstr "))"
           | BEquiv (g,h) ->  adstr "(("; str_ buf g; adstr ")<->("; str_ buf h; adstr "))"
-          | BAndList (g_list) -> adstr "(";  add_BAndList g_list buf ;adstr ")"; 
-          | BOrList (g_list)  -> adstr "(";  add_BOrList g_list buf ;adstr ")"; 
+          | BAndList (g_list) -> adstr "(";  add_BAndList g_list buf ;adstr ")" 
+          | BOrList (g_list)  -> adstr "(";  add_BOrList g_list buf ;adstr ")" 
 
   and add_BAndList lst buf =
       add_BList lst " & " buf
