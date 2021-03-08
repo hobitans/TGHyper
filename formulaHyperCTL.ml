@@ -42,16 +42,6 @@ exception Error of string
 let verbose = ref true;;
 
 
-(**
-CHECK for valid HyperCTL formula
-  - ENF form
-  - all AP bound by PV in Scope
-*)
-let check_hyperCTL_formula = 
-        (* todo check ENF *)
-        True
-
-
 
 (* get all APs from formula *)
 let rec getAPs_ f = 
@@ -60,6 +50,7 @@ let rec getAPs_ f =
     | Var (x, _) -> [x]
     | Not f | Next f | Finally f | Globally f | Exists (_, f) | Forall (_, f) -> getAPs_ f 
     | And (f, g) | Impl (f, g) | Equiv (f, g) | Or (f, g) | Until (f, g) |  WeakUntil (f, g) | Release (f, g) ->  getAPs_ f @ getAPs_ g
+
 
 let getAPs f = 
     let aps = foldr_rem_dupl ( getAPs_ f ) in 
@@ -333,29 +324,6 @@ let nnf_fast f =
 let print_hyperCTL f =
   if !verbose then
     printf "HyperCTL formula: %s\n%!" (hyperctl_str f)
-
-
- (* reduce numbers of X in nnf *)
- let rec reduceNext f = 
-  match f with
-      Var(a,pv) -> Var(a,pv)
-    | False -> False
-    | True -> True
-    | Not f -> Not (reduceNext f )
-    | Next f -> Next (reduceNext f)
-    | Finally f -> reduceNext (Until (True, f)) 
-    | Globally f -> reduceNext (Release (False, f)) 
-    | Impl (f, g) -> reduceNext (Or (Not f, g)) 
-    | Equiv (f, g) -> let (f, g) = reduceNext f, reduceNext g in And ((Or (Not f, g)), (Or (Not g, f)))
-    | And (f, g) -> And (reduceNext f, reduceNext g)
-    | Or (f, g) -> Or (reduceNext f, reduceNext g)
-    | Until (f, g) -> Until (reduceNext f , reduceNext g )
-    | WeakUntil (f, g) -> let (f, g) = reduceNext f, reduceNext g in Release (g, Or (f, g))  (**todo: check reduction !!! **)
-    | Release (f, g) -> Release (reduceNext f, reduceNext g)
-    | Forall (id, f) -> Forall (id, reduceNext f)
-    | Exists (id, f) -> Exists (id, reduceNext f)
-
-
 
 
 (*
