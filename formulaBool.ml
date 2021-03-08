@@ -1,3 +1,4 @@
+(* Adapted from DQBF Formulas in MGHyper **)
 
 open Functions
 
@@ -14,9 +15,6 @@ type boolformula =
   | BOrList of boolformula list
   | BEquiv of boolformula * boolformula
   | BImpl of boolformula * boolformula
-
-
-(* Adapted from DQBF Formulas in MGHyper **)
 
 
 

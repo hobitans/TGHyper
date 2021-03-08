@@ -1,3 +1,4 @@
+(* Based on incremantion loop sat checking of MGhyper, add funktionality for overall timeout *)
 open EnfFormula
 open Printf
 open FormulaHyperCTL

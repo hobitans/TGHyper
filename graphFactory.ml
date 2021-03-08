@@ -1,4 +1,6 @@
-
+(**
+Builds graph for satisfying assingment
+**)
  open Functions
  open Graph
 

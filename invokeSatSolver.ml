@@ -1,3 +1,5 @@
+(** adapted from invoking QBFSat solver in MGHyper/EAHyper**)
+
 open Functions
 
 let graph = ref false
