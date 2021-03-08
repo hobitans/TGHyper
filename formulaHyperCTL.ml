@@ -30,9 +30,6 @@ type hyperctl_formula =
 
 
 
-exception Identifier_notunique of string
-exception Identifier_rebound of string
-exception Identifier_unbound of string
 exception Error of string
 
 

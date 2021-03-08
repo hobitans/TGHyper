@@ -175,13 +175,12 @@ let multi_mode ()  =
                 multi_mode_ref ();
                 let stop = Unix.gettimeofday () in 
                 let single_runtime = (stop -. start) in
-                if  single_runtime < !timeout
+                if  ( (!timeout > 0.0) && ( single_runtime > !timeout))
                 then (
-                runtime := !runtime +. single_runtime;
-                i := !i + 1; )
-                else 
-                  ( 
                     t := !t+1; 
+                  ) else ( 
+                    runtime := !runtime +. single_runtime;
+                    i := !i + 1; 
                   );
                 if !verbose then printf "runtime: %fs\n%!" single_runtime;
     )
