@@ -1,3 +1,13 @@
+(**
+`main.ml`` is adapted from MGHyper/EAHyper. We adapted the mode handling procedures and reused most of the flags from MGHyper/EAHyper, 
+            so that users/scripts familiar with those tools can easily adapt. We reuse the file and string input handling methods of MGHyper/EAHyper.
+            We add, among other things, the following functionality/flags:
+    - ``-r`` randomly assign path variables ``pv`` to atomic propositions ``ap``, where the ``pv`` scopes over ``ap``.
+    - ``--graph`` If the formula is satisfiable, a graph representation of the assignment is shown.
+    - ``--notfast`` Replace G F operators by U R and do not use the smaller reduction (default false).
+    - ``--secLTL`` Print a SecLTL formula from our test set to adapt the formula adapt file ``secLTLTest.ml``.
+**)
+
 (* Hyper Tools *)
 open Tg_hyperCTL
 (**Formulas**)
@@ -144,8 +154,6 @@ let equiv_mode () =
   else
   printf "equivalenz does not hold"
 
-
-(** Adapted from MGHyper and EAHyper tool **)
 
 (*multi mode*)
 let get_lines file =

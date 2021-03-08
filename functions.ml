@@ -3,7 +3,6 @@ Collection of functions, needed at different points.
 Some of the function are from MGHyper, respectivly EAHyper, and where modify for handeling  TGHyper/HyperCTL* specificication.
 **)
 
-
 open Printf
 
 (* Print f *)
@@ -66,6 +65,6 @@ let str_contains s1 s2 =
   let re = Str.regexp_string s2 in
   try ignore (Str.search_forward re s1 0); true with Not_found -> false
 
-  let is_SAT_OUTPUT o =  
+let is_SAT_OUTPUT o =  
     str_contains o "% SATISFIABLE"
 
