@@ -1,10 +1,3 @@
-(***************************
-Main: 
-- Handles different modes (default/implication/multimode/euqivmode)
-- set different flags
-*************************************)
-
-
 (* Hyper Tools *)
 open Tg_hyperCTL
 (**Formulas**)

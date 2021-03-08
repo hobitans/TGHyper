@@ -13,20 +13,11 @@ open TvStep
 let inv = "inv"
 let verbose = ref false;
 
-(* path variable map, stores tree structure 
-  tv => (parent, step, pv)
-*)
 module PVMap = Map.Make(String)
 
 let pvMap = (ref PVMap.empty );;
 
 let init_PVmaps  = 
-  (* pvMap := PVMap.empty ;; *)
-  (* empty tuple vor ocaml type check *)
- (* ) let tv = "" in
-  let lst = ("",0,"") in      
-  pvMap := PVMap.add tv lst !pvMap; *)
-  (* empty Map again *)
   pvMap :=  PVMap.empty;; 
 
   
