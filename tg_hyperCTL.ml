@@ -21,23 +21,20 @@ let check_sat_E_hyperCTL_ f k qd_max aps  =
 
 let check_sat_E_hyperCTL f =
     let aps = getAPs f in
-    let k_max =  getMaxUnrollingBound f in (* 2^|f| * |f| *)
-    (* return the max alternation of quantifier and temp ops *)
-    let qd_max = ref (getQuantDepth f) in 
-    let k = ref 3 in      
-    let run = ref true in
     let sat = ref false in 
+    (* return the max alternation of quantifier and temp ops *)
+    let k = ref 3 in      
+    let k_max =  getMaxUnrollingBound f in (* 2^|f| * |f| *)
+    let qd_max = ref (getQuantDepth f) in 
+    let next = ref true in
     let start = Unix.gettimeofday () in
-
-
-
-    while !run do
+    while !next do
       if !verbose then (
       printf "----->%d-%d-%B\n" k_max !k !sat;
       print_newline (); );
       sat := check_sat_E_hyperCTL_ f k qd_max aps;
       if ( !sat || !k >= k_max)
-         then run := false
+         then next := false
          else (k := !k+1 );
       (** timeout **)
       let stop = Unix.gettimeofday () in 
@@ -45,7 +42,7 @@ let check_sat_E_hyperCTL f =
       then (
          printf "*****timeout******";
          printf "-timeout(%fs)--%fs->%d-%B\n" !timeout ( stop -. start ) !k !sat;
-         run := false
+         next := false
       )else(
         if !verbose then printf "time<(%fs)-%fs->%d-%B\n" !timeout ( stop -. start ) !k !sat;
       ) 
