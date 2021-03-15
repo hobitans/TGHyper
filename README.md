@@ -38,6 +38,7 @@ The list of adapted files is displayed below.
 * [Ocamlgraph](https://opam.ocaml.org/packages/ocamlgraph/ocamlgraph.1.8.8/)
 * [dot - graphviz version 2.44.1](https://graphviz.org)
 * [limboole](http://fmv.jku.at/limboole/)
+* [ocamlbuild](https://opam.ocaml.org/packages/ocamlbuild/)
 
 ### Build
 run ``make`` command
