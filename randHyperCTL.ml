@@ -51,16 +51,16 @@ let rec assignAPtoPV_ formula pvs =
     if !verbose then (Printf.printf "Output rand formula:(%d)" size; print_hyperCTL f);
 
     (* check valid *)
-    let print =
+    let in_ENF =   
     try
-       EnfFormula.check_and_transform f;
+       let _ = EnfFormula.check_and_transform f in
        true
     with e -> false
     in
+  
 
     if !verbose then Printf.printf  "%s\n" (hyperctl_str f);
-
-    f
+    if in_ENF then f else False
 
 
 

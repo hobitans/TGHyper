@@ -144,7 +144,6 @@ let conMSystemValid1 () =
     let o = ["con";"sry"] in
     let f = Var("rel", p) in
     let hide = hideOp_  p pv h l o f in
-    let conMS =  Globally( Impl( Next( Var("cls",p) ) , hide ) )  in
     let trc1 = [  [(true,"sub");(false,"upt");(false,"rvw"); (false,"cls");(false,"rel");(false,"con");(false,"acc");(false,"rej");(false,"sry")] ; 
                   [(false,"sub");(true,"upt");(false,"rvw"); (false,"cls");(false,"rel");(false,"con");(false,"acc");(false,"rej");(false,"sry")] ; 
                   [(false,"sub");(false,"upt");(true,"rvw"); (false,"cls");(false,"rel");(false,"con");(false,"acc");(false,"rej");(false,"sry")] ; 
@@ -314,13 +313,11 @@ let keyRet1 () =
     let keyRet i =
       let p = "ip" in
       let pv j = "pv"^(string_of_int i)^"i"^(string_of_int j) in
-      let k i = ["s"^(string_of_int i)] in
       let lst = List.init (i) (fun j -> "s"^(string_of_int (i - j )) ) in
       let l i = (List.filter (fun elm -> (compare elm ("s"^(string_of_int i))) <> 0) ) lst in
       let liste = ["l"]@(l i) in
 
       let o = ["o"] in
-      let f = False in
 
       let lst = List.init (i) (fun j -> (i - j - 1 ) ) in
       List.iter (fun i -> Printf.printf "%d" i) lst ;

@@ -22,7 +22,7 @@ end
 
 module E = struct
    type t = int
-   let compare = Pervasives.compare
+   let compare = Stdlib.compare
    let equal = (=)
    let default = 0
 end
@@ -58,7 +58,7 @@ module Dot = Graph.Graphviz.Dot(
 module Steps = 
 struct 
    type t = string * int
-   let compare = Pervasives.compare
+   let compare = Stdlib.compare
 end
 
 module Traces = Map.Make(Steps)
@@ -189,9 +189,26 @@ let build_graph pvmap_lst k =
    let file = open_out_bin dotfile in                                                               
    Dot.output_graph file !g;
    
+   (* check of macOS or Linux -> open or xdg-open*)
+   let oscall =  "uname " in
+   let (osic, osoc) = Unix.open_process oscall
+   in 
+   close_out osoc;
+   
+   let buf = Buffer.create 16 in
+   (try while true do (Buffer.add_channel buf osic 1 )done with End_of_file -> ());
+   let _ = Unix.close_process (osic, osoc) in
+   let osout = Buffer.contents buf in
+   (* check output *)
+   let open_str = 
+      if ( str_contains osout "Linux" )
+      then " xdg-open "
+      else " open "
+   in
+
    let pdffile = "./files/out.pdf" in
    (* build graph  from dot *)
-   let dotcall =  " dot -Tpdf "^dotfile^"  -o "^pdffile^"; open "^pdffile^";" in
+   let dotcall =  " dot -Tpdf "^dotfile^"  -o "^pdffile^"; "^open_str^" "^pdffile^";" in
    let (_,_) = Unix.open_process dotcall in
    Printf.printf "Open Graph ... "
 
@@ -217,7 +234,6 @@ let add_line_to_Map__ in_lst =
    let lst =  String.split_on_char brace_o right in
    let pv = List.nth lst 0 in
    let step = int_of_string (List.nth (String.split_on_char brace_c (List.nth lst 1) ) 0)  in
-   Printf.sprintf "%s -> %s -> %d\n" pv ap step;
    add_to_tree pv step ap
    
    

@@ -197,8 +197,7 @@ and getPVs__ f g exx all =
     | TempOps(_,f)    -> exists_in_enf f
     | ExistsPV(_,_)   -> true
     | ForallPV(_,f)   -> exists_in_enf f
-    | End             -> false
-    | _ -> raise (Error "struct not found in exists_in_enf" )    
+    | End             -> false  
 
   and exists_in_lst lst  =
     (List.exists (fun elm -> exists_in_enf elm ) lst)
@@ -272,7 +271,7 @@ and getPVs__ f g exx all =
       match enf with 
          QuantCon(id,s,lst) -> (
                       if pv_is_in_lst  lst fpv
-                      then (get_exists_pvs_lst (ExistsPV(s,End)::lst); assert(false) )
+                      then (get_exists_pvs_lst (ExistsPV(s,End)::lst) )
                       else get_pv_set_lst lst fpv
                   )
         | ForallPV(pv,succ) | ExistsPV(pv, succ)  -> []
@@ -309,8 +308,8 @@ let rec replacePVbyPV pv tv f =
     | MGlobally (id,f) -> MGlobally (id,replacePVbyPV pv tv f)
     | MExists (id,x, f) -> MExists (id,x, replacePVbyPV pv tv f)
     | MForall (id,x, f) -> MForall (id,x, replacePVbyPV pv tv f)
-    | MPathEqual (pv1,pv2) -> MPathEqual (pv1,pv2)
-    | _ -> raise (Error "replacePVbyPV not found " )    
+    | MPathEqual (pv1,pv2) -> MPathEqual (pv1,pv2)   
+    | _ -> raise (Error "case not found in replacePVbyPV")
 
 
   module PV_lst    = Map.Make(String)
@@ -349,8 +348,6 @@ let rec replacePVbyPV pv tv f =
           | ExistsPV(pv, _)  -> [pv]
           | TempOps(_, succ)   -> []
           | End -> []
-          | _ -> raise (Error "error get_exists_pvs_noRec")
-
 
 
   (* return the id and the path variable list for a universal quantified path variable *)
@@ -366,7 +363,7 @@ let rec replacePVbyPV pv tv f =
         | ForallPV(pv,succ) | ExistsPV(pv, succ)  -> (-1, [])
         | TempOps(pv, succ)   -> get_pv_set_id_  fpv succ
         | End -> (-1, [])
-        | _ -> raise (Error "dsmfklsdfkd");
+
 
   and get_pv_set_lst_id lst fpv =
     let pairlst = List.map (fun elm ->  get_pv_set_id_  fpv elm) lst in
@@ -401,7 +398,7 @@ let rec replacePVbyPV pv tv f =
     match f with 
     MTrue | MFalse | MVar (_,_, _) | MPathEqual (_,_) -> []
   | MForall (id,pv , _) -> [pv] 
-  | MNot (id,f) | MNext (id,f) | MFinally (id,f) | MGlobally (id,f) | MMap(id,_,f) | MExists (id,_, f) | MMap (id,_,f) -> getForallQuant_ f 
+  | MNot (id,f) | MNext (id,f) | MFinally (id,f) | MGlobally (id,f) | MExists (id,_, f) | MMap (id,_,f) -> getForallQuant_ f 
   | MAnd (id,f, g) | MImpl (id,f, g) | MEquiv (id,f, g) | MOr (id,f, g) | MUntil (id,f, g) | MWeakUntil (id,f, g) | MRelease (id,f, g) ->  getForallQuant_ f  @ getForallQuant_ g
 
 
@@ -777,9 +774,9 @@ let rec replacePVbyPV pv tv f =
               else nnf_f 
               in
 
-      if( direct_scope && indirect_scope ) then (
-      let e_f = enumerate_exists_forall nnf_f in
-
-      e_f 
-      )else raise (Error "Formula not in ENF-Fragment: universall quantifier in (in)direct scope of existentially one")
+      let e_f = 
+      if( direct_scope && indirect_scope ) 
+      then ( enumerate_exists_forall nnf_f )
+      else ( raise (Error "Formula not in ENF-Fragment: universall quantifier in (in)direct scope of existentially one") ) in
+      e_f
 

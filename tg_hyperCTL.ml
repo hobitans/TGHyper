@@ -12,7 +12,6 @@ let timeout = ref 0.0
 
 
 let check_sat_E_hyperCTL_ f k qd_max aps  =
-  printf "check_sat_E_hyperCTL_ call(%s):\n bound %d  %d qd %d \n" (hyperctl_str f) !k !qd_max;
   let boolFormula, pvmap_lst = Unrolling.unroll f k aps in
   let sat = InvokeSatSolver.invoke_SATSolver boolFormula pvmap_lst !k in
   sat

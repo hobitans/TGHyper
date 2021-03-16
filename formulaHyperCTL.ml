@@ -374,6 +374,7 @@ let  getMaxUnrollingBound formula =
         | Release (f, g) | Until (f, g) ->  max (rec_ f) (rec_ g)
         | Next f | Globally f | Finally f ->  (rec_ f)
         | Forall (x, f) | Exists (x, f) -> 1 + ( _getQuantDepth f )
+        | _ -> raise ( Error "only formula after nnf apply ")
 
     and _getQuantDepth f = 
           let rec_ =  _getQuantDepth in
@@ -383,6 +384,8 @@ let  getMaxUnrollingBound formula =
           | Release (f, g) | Until (f, g) -> max (getQuantDepth f) (getQuantDepth g)
           | Next f | Globally f | Finally f -> getQuantDepth f
           | Forall (x, f) | Exists (x, f) ->  rec_ f
+          | _ -> raise (Error "only formula after nnf apply ")
+
   
 
   

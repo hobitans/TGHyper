@@ -130,8 +130,7 @@ let loopAdd tv k lst lst_loops =
                                     sprintf "(%s->[%s, %d, %s])" tv parent step pv) ;)   !pvMap; *)
     let lst = ref [] in
     let lst_loops = ref [] in
-    PVMap.iter (fun tv tuple -> (   let parent, step, pv = tuple in
-                                    loopAdd tv k lst lst_loops) )   !pvMap ;
+    PVMap.iter (fun tv tuple -> (  loopAdd tv k lst lst_loops ))   !pvMap ;
     
     BAndList( (!lst)@(!lst_loops) )
 
@@ -223,7 +222,7 @@ and unroll__ f k tvset loop step =
       | Finally f         -> unroll_finally f k tvset loop step
       | Globally f        -> unroll_globally f k tvset loop step
       | Exists (pv, f)    -> unroll_exists pv f k tvset
-      | Forall (pv, f)    -> unroll_forall pv f  k tvset
+      | Forall (pv, f)    -> raise (Error "Only E*hyperctl* formulas ")
       | _                 -> raise (Error " hyperctl* ops not found, should not happen")
 
 
@@ -375,11 +374,6 @@ and unroll_exists pv f k tvset   =
           let unr = unroll_ f_r k tvset false 0 in
           let lst = [anchr;lps;unr] in
           BAndList(lst)
-
-
-and unroll_forall pv f k tvset   = 
-          assert(false);
-          BFalse
 
 let printPVMap () = 
     PVMap.iter (fun tv tuple -> (  let parent, step, pv = tuple in

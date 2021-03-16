@@ -29,8 +29,8 @@ type boolformula =
           | BOr (g, h)  -> adstr "("; str_ buf g; adstr "|"; str_ buf h; adstr ")"
           | BImpl (g, h) ->  adstr "(("; str_ buf g; adstr " )->("; str_ buf h; adstr "))"
           | BEquiv (g,h) ->  adstr "(("; str_ buf g; adstr ")<->("; str_ buf h; adstr "))"
-          | BAndList (g_list) -> adstr "(";  add_BAndList g_list buf ;adstr ")" 
-          | BOrList (g_list)  -> adstr "(";  add_BOrList g_list buf ;adstr ")" 
+          | BAndList (g_list) -> adstr "(";  add_BAndList g_list buf ; adstr ")" 
+          | BOrList (g_list)  -> adstr "(";  add_BOrList g_list buf ; adstr ")" 
 
   and add_BAndList lst buf =
       add_BList lst " & " buf
@@ -40,11 +40,12 @@ type boolformula =
 
   and add_BList lst op buf =
       let length = (List.length lst)-1 in
-      List.mapi (fun i elm -> ( (Buffer.add_string buf "(");
+      List.iteri (fun i elm -> ( (Buffer.add_string buf "(");
                                 str_ buf elm ; 
                                 (Buffer.add_string buf ")");
                                 if length >  i then (Buffer.add_string buf op)
-                              ))   lst 
+                              ))   lst
+    
       
 
   and add_var_ x y z buf =  
