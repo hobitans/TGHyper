@@ -42,6 +42,9 @@ let size = ref false
 let randomfix = ref false
 let notfast = ref false
 let secLTL = ref false
+let directory = ref "/home/tghyper/Desktop/submission/TGHyper"
+let nrline = ref 0
+let oneline = ref false
 
 (*set vars in TGHyperCTL*)
 let set_vars_in_tg_hyperCTL () =
@@ -49,6 +52,7 @@ let set_vars_in_tg_hyperCTL () =
   Tg_hyperCTL.timeout := !timeout;
   InvokeSatSolver.graph := !graph;
   InvokeSatSolver.verbose := !verbose;
+  InvokeSatSolver.directory := !directory;
   RandHyperCTL.verbose := !verbose;
   Unrolling.verbose := !verbose;
   EnfFormula.notfast := !notfast;
@@ -163,30 +167,21 @@ let multi_mode ()  =
  let multi_mode_ref = default_mode in
   from_file := false;
   let i = ref 0 in
-  let t = ref 0 in
-  let runtime = ref 0.0 in
   let handle_line line =
-  if !verbose then printf "line=%d i=%i  t=%d\n" (!i + !t) (!i) (!t);
     match line with
       "" -> ()
-    | _ -> ( if !verbose then printf "formula(%d):" (!i + !t);
-                let start = Unix.gettimeofday () in
-                formula_string := line;
-                multi_mode_ref ();
-                let stop = Unix.gettimeofday () in 
-                let single_runtime = (stop -. start) in
-                if  ( (!timeout > 0.0) && ( single_runtime > !timeout))
-                then (
-                    t := !t+1; 
-                  ) else ( 
-                    runtime := !runtime +. single_runtime;
-                    i := !i + 1; 
-                  );
-                if !verbose then printf "runtime: %fs\n%!" single_runtime;
+    | _ -> ( 
+            if ( not( !oneline ) || !nrline == !i )
+            then (
+              if !verbose then printf "line=%d\n" (!i );
+              i := !i + 1; 
+              formula_string := line;
+              multi_mode_ref ()
+            )
+            else (i := !i + 1; )
     )
   in
-  List.iter handle_line (get_lines !formula_file);
-  if !verbose then printf "solved:%d, timeoute%d, time:%fs, avg:%fs\n" !i !t !runtime (!runtime /. (float_of_int !i))
+  List.iter handle_line (get_lines !formula_file)
 (**********)
 
 let print_secLTL () = 
@@ -215,12 +210,15 @@ let spec_list =
    "-r", Arg.Set randomfix, "Randomly assigna atomic propositions to path variables.";
    "--notfast", Arg.Set notfast, "Replace G F operators by U R and do not use the smaller reduction (default false)";
    "--secLTL", Arg.Unit (fun _ -> mode_ref :=  print_secLTL ), "Print SecLTL test formulas";
+   "-l", Arg.Int (fun l -> nrline := l; oneline := true ), "Check only one line in multi mode";
    "-m",
    Arg.String
      (fun f -> formula_file := f; mode_ref := multi_mode; show_help := false),
    "File with multiple formulas to check.";
    "-t", Arg.Float (fun t -> timeout := t),
    "Timeout in float for one instance( not strict:does not stop longer execution of SAT-solver)";
+   "-dir", Arg.String (fun dir -> directory := dir),
+   "Directory of TGHyper";
    "-i", Arg.String (fun i -> formula_file2 := i; mode_ref := impl_mode),
    "File to imply.  \"ip\" is the shared path variable";
    "-is",

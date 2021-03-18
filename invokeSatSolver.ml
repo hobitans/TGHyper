@@ -4,12 +4,13 @@ open Functions
 
 let graph = ref false
 let verbose = ref false
+let directory =  ref (".")
 
 
 let invoke_SATSolver bool_form_str pvmap_lst k =
 
 (*create file*)
-let file = "./files/unr_form.in" in
+let file = (!directory)^"/files/unr_form.in" in
 let oc_file = open_out file in
 Printf.fprintf oc_file "%s\n" bool_form_str;
 close_out oc_file;
@@ -19,13 +20,14 @@ close_out oc_file;
   By adatping these lines, it is possible to use SAT-Solver, that can handle CNF formulas
 
   invoke limbool for generating CNF DIMAC files
-  let pfile = "./files/punr_form.in" in
-  let limboolcall =  "./solvers/limbooleOSX  -d "^file ^" > "^pfile in
+  let pfile = (!directory)^"/files/punr_form.in" in
+  let limboolcall =  (!directory)^"/solvers/limbooleOSX  -d "^file ^" > "^pfile in
   let ( icp, ocp ) = Unix.open_process limboolcall in
   close_out ocp;
 
   *)
-let limboolcall =  "./solvers/limbooleOSX "^file^" -s " in
+
+let limboolcall =  (!directory)^"/solvers/limbooleOSX "^file^" -s " in
 let (ic, oc) = Unix.open_process limboolcall
 in 
 (* output_string oc file;*)
